@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30621.155
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVAtkArrayDataBrowserPlugin", "FFXIVAtkArrayDataBrowserPlugin.csproj", "{F81FFD4B-BDF4-46FC-BDA3-18B37F3AA99B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F81FFD4B-BDF4-46FC-BDA3-18B37F3AA99B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F81FFD4B-BDF4-46FC-BDA3-18B37F3AA99B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F81FFD4B-BDF4-46FC-BDA3-18B37F3AA99B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F81FFD4B-BDF4-46FC-BDA3-18B37F3AA99B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {124A3443-36CB-4934-8821-1086F818071A}
+	EndGlobalSection
+EndGlobal
