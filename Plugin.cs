@@ -1,29 +1,29 @@
 ﻿using System;
+using Dalamud.Game.Command;
+using Dalamud.IoC;
 using Dalamud.Plugin;
 using FFXIVAtkArrayDataBrowserPlugin.Attributes;
 
 namespace FFXIVAtkArrayDataBrowserPlugin
 {
-    public class Plugin : IDalamudPlugin
+    public class Plugin : IDalamudPlugin 
     {
-        public DalamudPluginInterface pluginInterface;
-        private PluginCommandManager<Plugin> commandManager;
-        private PluginUI ui;
+        [PluginService] public static DalamudPluginInterface PluginInterface { get; set; } = null!;
+        [PluginService] public static CommandManager Commands { get; set; } = null!;
+
+        private readonly PluginCommandManager<Plugin> commandManager;
+        private readonly PluginUI ui;
 
         public string Name => "AtkArrayData Browser";
 
-        public void Initialize(DalamudPluginInterface pluginInterface)
+        public Plugin()
         {
-            this.pluginInterface = pluginInterface;
-
             this.ui = new PluginUI(this);
-            this.pluginInterface.UiBuilder.OnBuildUi += this.ui.Draw;
-
+            this.commandManager = new PluginCommandManager<Plugin>(this);
             this.ui.IsVisible = true;
-
-            this.commandManager = new PluginCommandManager<Plugin>(this, this.pluginInterface);
+            PluginInterface.UiBuilder.Draw += this.ui.Draw;
         }
-
+        
         [Command("/atkarraydata")]
         [HelpMessage("Show AtkArrayData browser.")]
         public void ShowUI(string command, string args)
@@ -35,12 +35,8 @@ namespace FFXIVAtkArrayDataBrowserPlugin
         protected virtual void Dispose(bool disposing)
         {
             if (!disposing) return;
-            
             this.commandManager.Dispose();
-
-            this.pluginInterface.UiBuilder.OnBuildUi -= this.ui.Draw;
-
-            this.pluginInterface.Dispose();
+            PluginInterface.UiBuilder.Draw -= this.ui.Draw;
         }
 
         public void Dispose()

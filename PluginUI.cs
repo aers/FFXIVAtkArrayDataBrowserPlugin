@@ -1,38 +1,35 @@
 ﻿using System;
-using System.Net.Configuration;
 using System.Runtime.InteropServices;
-using FFXIVClientStructs.FFXIV.Client.UI;
-using FFXIVClientStructs.FFXIV.Component.GUI;
+using FFXIVClientStructs.FFXIV.Client.System.Framework;
 using ImGuiNET;
 
 namespace FFXIVAtkArrayDataBrowserPlugin
 {
     public unsafe class PluginUI
     {
-        private Plugin _plugin;
-
-        public PluginUI(Plugin p)
-        {
-            this._plugin = p;
-        }
+        private readonly string pluginName;
 
         private bool visible = true;
 
-        public bool IsVisible
+        public bool IsVisible 
         {
-            get { return this.visible; }
-            set { this.visible = value; }
+            get => this.visible;
+            set => this.visible = value;
         }
 
+        public PluginUI(Plugin p)
+        {
+            pluginName = p.Name;
+        }
 
         public void Draw()
         {
             if (!IsVisible)
                 return;
 
-            if (ImGui.Begin($"{_plugin.Name}", ref visible, ImGuiWindowFlags.AlwaysAutoResize))
+            if (ImGui.Begin($"{pluginName}", ref visible, ImGuiWindowFlags.AlwaysAutoResize))
             {
-                var uiModule = (UIModule*)_plugin.pluginInterface.Framework.Gui.GetUIModule();
+                var uiModule = Framework.Instance()->GetUiModule();
                 if (uiModule == null)
                 {
                     ImGui.Text("UIModule unavailable. ");

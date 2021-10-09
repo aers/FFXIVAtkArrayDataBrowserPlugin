@@ -1,5 +1,4 @@
 ﻿using Dalamud.Game.Command;
-using Dalamud.Plugin;
 using FFXIVAtkArrayDataBrowserPlugin.Attributes;
 using System;
 using System.Collections.Generic;
@@ -10,18 +9,17 @@ using static Dalamud.Game.Command.CommandInfo;
 
 namespace FFXIVAtkArrayDataBrowserPlugin
 {
-    public class PluginCommandManager<THost> : IDisposable
+    public sealed class PluginCommandManager<THost> : IDisposable
     {
-        private readonly DalamudPluginInterface pluginInterface;
         private readonly (string, CommandInfo)[] pluginCommands;
         private readonly THost host;
 
-        public PluginCommandManager(THost host, DalamudPluginInterface pluginInterface)
+        public PluginCommandManager(THost host)
         {
-            this.pluginInterface = pluginInterface;
             this.host = host;
 
-            this.pluginCommands = host.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance)
+            this.pluginCommands = host!.GetType()
+                .GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance)
                 .Where(method => method.GetCustomAttribute<CommandAttribute>() != null)
                 .SelectMany(GetCommandInfoTuple)
                 .ToArray();
@@ -38,7 +36,7 @@ namespace FFXIVAtkArrayDataBrowserPlugin
             for (var i = 0; i < this.pluginCommands.Length; i++)
             {
                 var (command, commandInfo) = this.pluginCommands[i];
-                this.pluginInterface.CommandManager.AddHandler(command, commandInfo);
+                Plugin.Commands.AddHandler(command, commandInfo);
             }
         }
 
@@ -47,7 +45,7 @@ namespace FFXIVAtkArrayDataBrowserPlugin
             for (var i = 0; i < this.pluginCommands.Length; i++)
             {
                 var (command, _) = this.pluginCommands[i];
-                this.pluginInterface.CommandManager.RemoveHandler(command);
+                Plugin.Commands.RemoveHandler(command);
             }
         }
 
@@ -55,7 +53,7 @@ namespace FFXIVAtkArrayDataBrowserPlugin
         {
             var handlerDelegate = (HandlerDelegate)Delegate.CreateDelegate(typeof(HandlerDelegate), this.host, method);
 
-            var command = handlerDelegate.Method.GetCustomAttribute<CommandAttribute>();
+            var command = handlerDelegate.Method.GetCustomAttribute<CommandAttribute>()!;
             var aliases = handlerDelegate.Method.GetCustomAttribute<AliasesAttribute>();
             var helpMessage = handlerDelegate.Method.GetCustomAttribute<HelpMessageAttribute>();
             var doNotShowInHelp = handlerDelegate.Method.GetCustomAttribute<DoNotShowInHelpAttribute>();

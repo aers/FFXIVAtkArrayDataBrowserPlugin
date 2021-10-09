@@ -1,0 +1,11 @@
+﻿{
+  "Name": "AtkArrayData Browser",
+  "Author": "aers",
+  "Description": "maybe",
+  "RepoUrl": "https://github.com/aers/FFXIVAtkArrayDataBrowserPlugin",
+  "AssemblyVersion": "1.0.0.0",
+  "InternalName": "FFXIVAtkArrayDataBrowserPlugin",
+  "ApplicableVersion": "any",
+  "DalamudApiLevel": 4,
+  "LoadPriority": 0
+}

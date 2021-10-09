@@ -1,54 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+ <PropertyGroup>
+  <TargetFramework>net5.0-windows</TargetFramework>
+  <PlatformTarget>x64</PlatformTarget>
+  <Nullable>enable</Nullable>
+  <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  <DebugType>Full</DebugType>
+  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+  <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  <Dalamud>$(APPDATA)\XIVLauncher\addon\Hooks\dev\</Dalamud>
 
-  <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
-    <LangVersion>9.0</LangVersion>
-    <Version>1.0.0.0</Version>
-  </PropertyGroup>
+  <Authors>aers</Authors>
+  <Version>1.0.0.0</Version>
+  <Description>maybe</Description>
+  <PackageProjectUrl>https://github.com/aers/FFXIVAtkArrayDataBrowserPlugin</PackageProjectUrl>
+ </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
+ <ItemGroup>
+  <PackageReference Include="DalamudPackager" Version="2.1.4" />
+ </ItemGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
+ <ItemGroup>
+  <Content Include="FFXIVAtkArrayDataBrowserPlugin.json" CopyToOutputDirectory="Always" />
 
-  <ItemGroup>
-    <PackageReference Include="DalamudPackager" Version="1.2.1" />
-    <PackageReference Include="ILMerge" Version="3.0.41" />
-    <PackageReference Include="ILMerge.MSBuild.Task" Version="1.0.7" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Dalamud">
-      <HintPath>C:\Users\aers\AppData\Roaming\XIVLauncher\addon\Hooks\dev\Dalamud.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="FFXIVClientStructs">
-      <HintPath>..\..\FFXIVClientStructs\bin\Debug\net472\FFXIVClientStructs.dll</HintPath>
-      <Private>true</Private>
-    </Reference>
-    <Reference Include="ImGui.NET">
-      <HintPath>C:\Users\aers\AppData\Roaming\XIVLauncher\addon\Hooks\dev\ImGui.NET.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="ImGuiScene">
-      <HintPath>C:\Users\aers\AppData\Roaming\XIVLauncher\addon\Hooks\dev\ImGuiScene.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="Lumina">
-      <HintPath>C:\Users\aers\AppData\Roaming\XIVLauncher\addon\Hooks\dev\Lumina.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="Lumina.Excel">
-      <HintPath>C:\Users\aers\AppData\Roaming\XIVLauncher\addon\Hooks\dev\Lumina.Excel.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>C:\Users\aers\AppData\Roaming\XIVLauncher\addon\Hooks\dev\Newtonsoft.Json.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-  </ItemGroup>
-
+  <Reference Include="Dalamud" HintPath="$(Dalamud)Dalamud.dll" Private="False" />
+  <Reference Include="ImGui.NET" HintPath="$(Dalamud)ImGui.NET.dll" Private="False" />
+  <Reference Include="Lumina" HintPath="$(Dalamud)Lumina.dll" Private="False" />
+  <Reference Include="Lumina.Excel" HintPath="$(Dalamud)Lumina.Excel.dll" Private="False" />
+  <Reference Include="FFXIVClientStructs" HintPath="$(Dalamud)FFXIVClientStructs.dll" Private="False" />
+ </ItemGroup>
 </Project>
